@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Rosemary 💖 My Angel Forever</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff6b9d;
+            --pink-light: #fecfef;
+            --pink-soft: #ffe6ee;
+            --gold: #ffd700;
+            --text: #333;
+            --white: #ffffff;
+            --dark: rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--pink-soft) 0%, var(--pink-light) 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        #login-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=2574&auto=format&fit=crop');
+            background-size: cover;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            transition: opacity 1s ease;
+        }
+        #login-screen h2 { color: var(--white); font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 10px; }
+        #login-screen p { color: var(--white); margin-bottom: 20px; }
+        input {
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid var(--pink);
+            background: transparent;
+            color: var(--white);
+            font-size: 1.2rem;
+            outline: none;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .btn-game {
+            background: var(--pink);
+            color: var(--white);
+            padding: 12px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--pink);
+            transition: transform 0.2s;
+        }
+        .btn-game:active { transform: scale(0.95); }
+        .error-msg { color: #ff4757; display: none; margin-top: 10px; }
+        .booyah {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            display: none;
+            animation: pulse 1s ease-in-out;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        #main-content { display: none; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0 50px;
+            background: linear-gradient(135deg, var(--pink), var(--pink-light));
+            color: var(--white);
+            border-radius: 0 0 50px 50px;
+        }
+        .heart-float { animation: float 4s ease-in-out infinite; }
+        .name-glow {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            text-shadow: 0 0 20px var(--pink);
+            margin-bottom: 10px;
+        }
+        .nicknames {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        section { margin: 40px 0; }
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8em;
+            color: var(--pink);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--dark);
+            line-height: 1.8;
+            font-size: 1.15em;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+            margin: 20px 0;
+            border-left: 5px solid var(--pink);
+        }
+        .card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .card h3 { color: var(--gold); display: flex; align-items: center; margin-bottom: 15px; }
+        .icon { margin-right: 10px; font-size: 1.5rem; }
+
+        .messages-list {
+            list-style: none;
+            display: grid;
+            gap: 18px;
+        }
+        .message-item {
+            background: var(--pink-light);
+            padding: 18px;
+            border-radius: 15px;
+            border-left: 6px solid var(--pink);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .message-item:hover { transform: translateY(-8px); background: var(--pink); color: var(--white); }
+
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .memory {
+            background: var(--pink-light);
+            padding: 20px;
+            border-radius: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .memory:hover {
+            background: var(--pink);
+            color: var(--white);
+            transform: translateY(-5px);
+        }
+
+        .gift-box {
+            cursor: pointer;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .box {
+            width: 160px; height: 160px;
+            background: linear-gradient(45deg, var(--pink), var(--gold));
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            position: relative;
+            transition: transform 0.4s;
+        }
+        .box:hover { transform: scale(1.1) rotate(5deg); }
+        .lid {
+            position: absolute;
+            top: -15px; left: 50%;
+            transform: translateX(-50%);
+            width: 180px; height: 30px;
+            background: var(--white);
+            border-radius: 15px 15px 0 0;
+        }
+        .ribbon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 30px; height: 30px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        #gift-content {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 20px;
+            font-size: 1.3em;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            box-shadow: 0 15px 35px var(--dark);
+        }
+        #gift-content.show { opacity: 1; transform: translateY(0); }
+
+        #photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 50px auto;
+            max-width: 1000px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s ease;
+        }
+        #photo-gallery.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .photo-frame {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+        .photo-frame:hover {
+            transform: scale(1.05);
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 20px 15px 15px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .photo-frame:hover .photo-caption {
+            opacity: 1;
+        }
+
+        #wallMessages {
+            margin-top: 20px;
+            background: var(--pink-soft);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .messageCard {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--pink);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--pink-light);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+        button {
+            background: var(--pink);
+            color: var(--white);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        button:hover { background: #e91e63; transform: scale(1.05); }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 1.4em;
+            color: var(--pink);
+            font-weight: bold;
+            background: var(--white);
+            border-radius: 20px 20px 0 0;
+            margin-top: 40px;
+            box-shadow: 0 -15px 35px var(--dark);
+        }
+
+        #public-wish {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--dark);
+            margin-top: 50px;
+        }
+        #public-wish h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--pink);
+            margin-bottom: 20px;
+        }
+        #public-wish p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        #public-wall {
+            margin-top: 30px;
+            text-align: left;
+        }
+        #public-wall .messageCard {
+            background: var(--pink-soft);
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+        @keyframes fadeInUp { from {opacity:0; transform:translateY(40px)} to {opacity:1; transform:translateY(0)} }
+        @keyframes confettiFall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        @media (max-width: 600px) {
+            .name-glow { font-size: 2.8em; }
+            h2 { font-size: 2.2em; }
+            .nicknames { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles-js"></canvas>
+
+    <div id="login-screen">
+        <h2>Unlock My Heart, Beautiful</h2>
+        <p>Enter your secret nickname to enter our world... 💕</p>
+        <input type="text" id="passwordInput" >
+        <button class="btn-game" onclick="checkPassword()">Enter Our Story</button>
+        <p class="error-msg" id="error">Welcome Buddy ❤️</p>
+        <div class="booyah" id="success-msg">BOOYAH! You're my Momiee! 🎮❤️</div>
+    </div>
+
+    <div id="main-content">
+        <div class="container">
+
+            <header class="hero">
+                <div class="heart-float">
+                    <h1 class="name-glow">Happy Birthday, Rosemary!</h1>
+                    <div class="nicknames">
+                        <div class="tag">Momiee 💕</div>
+                        <div class="tag">Hanni 🌸</div>
+                        <div class="tag">Sweety ✨</div>
+                        <div class="tag">My Angel 👼</div>
+                    </div>
+                </div>
+            </header>
+
+            <section>
+                <h2 style="text-align: center; font-size: 2.5em;">Thank you for coming into my life…</h2>
+                <div class="card" style="text-align: center; font-size: 1.3em; font-style: italic;">
+                    <p>I’m so thankful for you every single day. You make my world brighter, my heart fuller. ♡</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Our Magical Journey</h2>
+                <div class="card">
+                    <h3><span class="icon">📍</span> The Spark: Fondi</h3>
+                    <p>We met in the magical chaos of Fondi, two souls in a crowd. You were sitting there, alone in the plaza, and something just clicked. Little did I know, I'd found my forever.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="icon">🎮</span> The Flame: Free Fire Nights</h3>
+                    <p>From lobby invites to epic revives, we bonded over Free Fire. Late-night squads, endless laughs, and voice chats that made my heart race. You're my ultimate dynamic duo—best teammate ever! 🏆</p>
+                </div>
+                <div class="card">
+                    <h3><span class="icon">✈️</span> The Promise: Across Distances</h3>
+                    <p>We've never met in person (yet), but screens can't dim our love. One day, we'll trade pixels for hugs. Until then, you're always in my heart—and I won't let you leave my eyes. 😍</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Why You're My Everything 💖</h2>
+                <ul class="messages-list">
+                    <li class="message-item">Your smile? A sunrise that chases away every shadow in my world 🌅</li>
+                    <li class="message-item">Your voice in those Free Fire calls? My favorite melody on repeat 🎧</li>
+                    <li class="message-item">You turn ordinary moments into pure magic ✨</li>
+                    <li class="message-item">You're my safe place, my sweety, my forever victory royale 🏆❤️</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>📸 Cherished Memories</h2>
+                <div class="memories">
+                    <div class="memory" onclick="alert('That first Fondi glance... stole my breath forever. 💕')">Our Fondi meeting—strangers turned soulmates.</div>
+                    <div class="memory" onclick="alert('Reviving you in-game felt like saving my own heart. 🎮')">That epic Free Fire revive—our unbreakable bond.</div>
+                    <div class="memory" onclick="alert('Your laugh echoes in my dreams every night. 😊')">Late-night chats that last till dawn.</div>
+                    <div class="memory" onclick="alert('One day, real hugs await. Cannot wait! ✈️')">Dreaming of our first in-person date.</div>
+                </div>
+            </section>
+
+            <section class="gift-box" onclick="openGift()">
+                <h2>Your Birthday Treasure 🎁</h2>
+                <div class="box">
+                    <div class="lid"></div>
+                    <div class="ribbon"></div>
+                </div>
+                <p>Click to unwrap, Momiee! (It's from our Free Fire adventures)</p>
+            </section>
+            <div id="gift-content">
+                <p>My eternal promise, Rosemary:<br>
+                We'll trade screens for stolen kisses, Free Fire lobbies for real-life adventures, and voice notes for whispers under the stars.<br><br>
+                <strong>You're my angel, my beauty, my everything—I love you more than words or wins can say.</strong><br><br>
+                And here’s a little gallery of us… moments I cherish forever. 💕</p>
+            </div>
+
+          <div id="photo-gallery">
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\1.jpg" alt="Our moment 1">
+                    <div class="photo-caption">Spider belongs to Hanni 💕</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\2.jpg" alt="Our moment 2">
+                    <div class="photo-caption">Dancing on the mill 🌸</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\3.jpg" alt="Our moment 3">
+                    <div class="photo-caption">Free Fire nights with you 🎮❤️</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\4.jpg" alt="Our moment 4">
+                    <div class="photo-caption">haha....stay confused</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\5.jpg" alt="Our moment 5">
+                    <div class="photo-caption">Yhh sit down infront of me</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\6.jpg" alt="Our moment 6">
+                    <div class="photo-caption">Dreaming of this hug one day  </div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\7.jpg" alt="Our moment 6">
+                    <div class="photo-caption"> Can't wait to do it irl</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\8.jpg" alt="Our moment 6">
+                    <div class="photo-caption">Forever isn’t long enough ♾️</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="K:\Rosemary\9.jpg" alt="Our moment 6">
+                    <div class="photo-caption">Remember that frustrated day?</div>
+                </div>
+            </div>
+
+            <footer>
+                Crafted with endless love for my Rosemary—<br>
+                Your Dynamic duo, Friend and wellwisher(kk or spider). ❤️🎂
+            </footer>
+        </div>
+    </div>
+
+    <div id="public-wish">
+        <h1>Happy Birthday, Rosemary! 🎂</h1>
+        <p>A special angel is celebrating today. Share your love and wishes for her!</p>
+        <input type="text" id="public-name" placeholder="Your name...">
+        <textarea id="public-msg" rows="4" placeholder="Your birthday message..."></textarea>
+        <button onclick="savePublicMessage()">Send Wish</button>
+        <div id="public-wallMessages"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 90, density: { enable: true, value_area: 800 } },
+                color: { value: ['#ff6b9d', '#e91e63', '#ffd700'] },
+                shape: { type: 'circle' },
+                opacity: { value: 0.6, random: true },
+                size: { value: 4, random: true },
+                move: { enable: true, speed: 1.5, direction: 'none', random: true, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+            },
+            retina_detect: true
+        });
+
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let hearts = [];
+        function createHeart() {
+            return { x: Math.random() * canvas.width, y: canvas.height + 30, size: Math.random() * 20 + 15, speed: Math.random() * 2 + 1, opacity: 1 };
+        }
+        for(let i = 0; i < 20; i++) hearts.push(createHeart());
+        function drawHeart(x, y, size, opacity) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + size/4);
+            ctx.bezierCurveTo(x, y, x - size/2, y, x - size/2, y + size/4);
+            ctx.bezierCurveTo(x - size/2, y + size/2, x, y + size*0.9, x, y + size);
+            ctx.bezierCurveTo(x, y + size*0.9, x + size/2, y + size/2, x + size/2, y + size/4);
+            ctx.bezierCurveTo(x + size/2, y, x, y, x, y + size/4);
+            ctx.fillStyle = `rgba(255, 107, 157, ${opacity})`;
+            ctx.fill();
+        }
+        function animateHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach((h, i) => {
+                h.y -= h.speed;
+                h.opacity = Math.max(0, h.y / canvas.height);
+                if (h.y < -50) hearts[i] = createHeart();
+                drawHeart(h.x, h.y, h.size, h.opacity);
+            });
+            requestAnimationFrame(animateHearts);
+        }
+        animateHearts();
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.toLowerCase().trim();
+            const error = document.getElementById('error');
+            const success = document.getElementById('success-msg');
+            const loginScreen = document.getElementById('login-screen');
+            const mainContent = document.getElementById('main-content');
+            const publicWish = document.getElementById('public-wish');
+            const specialNames = ['hanni', 'momiee', 'rosemary'];
+            if (specialNames.includes(input)) {
+                error.style.display = 'none';
+                success.style.display = 'block';
+                setTimeout(() => {
+                    loginScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loginScreen.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        revealCards();
+                    }, 1000);
+                }, 1500);
+            } else {
+                error.style.display = 'block';
+                shakeInput();
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    publicWish.style.display = 'block';
+                    loadPublicMessages();
+                }, 2000);
+            }
+        }
+        function shakeInput() {
+            const input = document.getElementById('passwordInput');
+            input.style.transform = "translateX(10px)";
+            setTimeout(() => input.style.transform = "translateX(-10px)", 100);
+            setTimeout(() => input.style.transform = "translateX(0)", 200);
+        }
+
+        function revealCards() {
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            });
+            cards.forEach(card => observer.observe(card));
+        }
+
+        function openGift() {
+            document.getElementById('gift-content').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('photo-gallery').classList.add('show');
+            }, 800);
+            for(let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.style.position = 'fixed';
+                    c.style.left = Math.random() * 100 + 'vw';
+                    c.style.top = '-10px';
+                    c.style.width = '12px';
+                    c.style.height = '12px';
+                    c.style.background = `hsl(${Math.random()*360}, 100%, 65%)`;
+                    c.style.pointerEvents = 'none';
+                    c.style.zIndex = '9999';
+                    c.style.animation = 'confettiFall 3s linear forwards';
+                    document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        function loadMessages() {
+            const container = document.getElementById("wallMessages");
+            container.innerHTML = "";
+            const saved = JSON.parse(localStorage.getItem("rosemaryWishes") || "[]");
+            saved.forEach(m => {
+                const card = document.createElement("div");
+                card.classList.add("messageCard");
+                card.innerHTML = `<strong>${m.name}</strong><br>${m.text}`;
+                container.appendChild(card);
+            });
+        }
+        function saveMessage() {
+            const name = document.getElementById("name").value.trim();
+            const msg = document.getElementById("msg").value.trim();
+            if (!name || !msg) { alert("Fill in a name and message to spread the love! 💕"); return; }
+            const messages = JSON.parse(localStorage.getItem("rosemaryWishes") || "[]");
+            messages.push({name, text: msg});
+            localStorage.setItem("rosemaryWishes", JSON.stringify(messages));
+            document.getElementById("name").value = "";
+            document.getElementById("msg").value = "";
+            loadMessages();
+        }
+        loadMessages();
+
+        function loadPublicMessages() {
+            const container = document.getElementById("public-wallMessages");
+            container.innerHTML = "";
+            const saved = JSON.parse(localStorage.getItem("publicWishes") || "[]");
+            saved.forEach(m => {
+                const card = document.createElement("div");
+                card.classList.add("messageCard");
+                card.innerHTML = `<strong>${m.name}</strong><br>${m.text}`;
+                container.appendChild(card);
+            });
+        }
+        function savePublicMessage() {
+            const name = document.getElementById("public-name").value.trim() || "Anonymous";
+            const msg = document.getElementById("public-msg").value.trim();
+            if (!msg) { alert("Please write a wish! ❤️"); return; }
+            const messages = JSON.parse(localStorage.getItem("publicWishes") || "[]");
+            messages.push({name, text: msg});
+            localStorage.setItem("publicWishes", JSON.stringify(messages));
+            document.getElementById("public-name").value = "";
+            document.getElementById("public-msg").value = "";
+            loadPublicMessages();
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
