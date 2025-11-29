@@ -15,7 +15,6 @@
             --white: #ffffff;
             --dark: rgba(0,0,0,0.1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Poppins', sans-serif;
@@ -26,7 +25,6 @@
             position: relative;
         }
         canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-
         #login-screen {
             height: 100vh;
             display: flex;
@@ -76,11 +74,8 @@
             animation: pulse 1s ease-in-out;
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
         #main-content { display: none; }
-
         .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-
         .hero {
             text-align: center;
             padding: 80px 0 50px;
@@ -110,7 +105,6 @@
             font-weight: bold;
             color: var(--white);
         }
-
         section { margin: 40px 0; }
         h2 {
             font-family: 'Dancing Script', cursive;
@@ -138,7 +132,6 @@
         }
         .card h3 { color: var(--gold); display: flex; align-items: center; margin-bottom: 15px; }
         .icon { margin-right: 10px; font-size: 1.5rem; }
-
         .messages-list {
             list-style: none;
             display: grid;
@@ -153,7 +146,6 @@
             cursor: pointer;
         }
         .message-item:hover { transform: translateY(-8px); background: var(--pink); color: var(--white); }
-
         .memories {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -172,7 +164,6 @@
             color: var(--white);
             transform: translateY(-5px);
         }
-
         .gift-box {
             cursor: pointer;
             text-align: center;
@@ -217,7 +208,6 @@
             box-shadow: 0 15px 35px var(--dark);
         }
         #gift-content.show { opacity: 1; transform: translateY(0); }
-
         #photo-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -265,7 +255,6 @@
         .photo-frame:hover .photo-caption {
             opacity: 1;
         }
-
         #wallMessages {
             margin-top: 20px;
             background: var(--pink-soft);
@@ -299,7 +288,6 @@
             transition: 0.3s;
         }
         button:hover { background: #e91e63; transform: scale(1.05); }
-
         footer {
             text-align: center;
             padding: 50px 20px;
@@ -311,9 +299,8 @@
             margin-top: 40px;
             box-shadow: 0 -15px 35px var(--dark);
         }
-
         #public-wish {
-            display: none;
+            display: block;
             max-width: 800px;
             margin: 0 auto;
             padding: 60px 20px;
@@ -321,7 +308,6 @@
             background: var(--white);
             border-radius: 20px;
             box-shadow: 0 15px 35px var(--dark);
-            margin-top: 50px;
         }
         #public-wish h1 {
             font-family: 'Dancing Script', cursive;
@@ -343,11 +329,9 @@
             margin: 15px 0;
             text-align: left;
         }
-
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
         @keyframes fadeInUp { from {opacity:0; transform:translateY(40px)} to {opacity:1; transform:translateY(0)} }
         @keyframes confettiFall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
-
         @media (max-width: 600px) {
             .name-glow { font-size: 2.8em; }
             h2 { font-size: 2.2em; }
@@ -356,22 +340,17 @@
     </style>
 </head>
 <body>
-
     <canvas id="particles-js"></canvas>
-
     <div id="login-screen">
         <h2>Unlock My Heart, Beautiful</h2>
         <p>Hint: Enter your secret nickname to enter our world my gurl... 💕</p>
-        <p>Enter your name to continue if you're not Hanni</p>
         <input type="text" id="passwordInput" >
         <button class="btn-game" onclick="checkPassword()">Enter Our Story</button>
-        <p class="error-msg" id="error">Welcome Buddy ❤️</p>
+        <p class="error-msg" id="error">You're Wrong... Try again Sweetheart ❤️</p>
         <div class="booyah" id="success-msg">BOOYAH! You're my Momiee! 🎮❤️</div>
     </div>
-
     <div id="main-content">
         <div class="container">
-
             <header class="hero">
                 <div class="heart-float">
                     <h1 class="name-glow">Happy Birthday, Rosemary!</h1>
@@ -383,14 +362,12 @@
                     </div>
                 </div>
             </header>
-
             <section>
                 <h2 style="text-align: center; font-size: 2.5em;">Thank you for coming into my life…</h2>
                 <div class="card" style="text-align: center; font-size: 1.3em; font-style: italic;">
-                    <p>I’m so thankful for you every single day. You make my world brighter, my heart fuller. ♡</p>
+                    <p>I'm so thankful for you every single day. You make my world brighter, my heart fuller. ♡</p>
                 </div>
             </section>
-
             <section>
                 <h2>Our Magical Journey</h2>
                 <div class="card">
@@ -406,7 +383,6 @@
                     <p>We've never met in person (yet), but screens can't dim our love. One day, we'll trade pixels for hugs. Until then, you're always in my heart—and I won't let you leave my eyes. 😍</p>
                 </div>
             </section>
-
             <section>
                 <h2>Why You're My Everything 💖</h2>
                 <ul class="messages-list">
@@ -416,7 +392,6 @@
                     <li class="message-item">You're my safe place, my sweety, my forever victory royale 🏆❤️</li>
                 </ul>
             </section>
-
             <section>
                 <h2>📸 Cherished Memories</h2>
                 <div class="memories">
@@ -426,7 +401,6 @@
                     <div class="memory" onclick="alert('One day, real hugs await. Cannot wait! ✈️')">Dreaming of our first in-person date.</div>
                 </div>
             </section>
-
             <section class="gift-box" onclick="openGift()">
                 <h2>Your Birthday Treasure 🎁</h2>
                 <div class="box">
@@ -441,7 +415,6 @@
                 <strong>You're my angel, my beauty, my everything—I love you more than words or wins can say.</strong><br><br>
                 And here’s a little gallery of us… moments I cherish forever. 💕</p>
             </div>
-
           <div id="photo-gallery">
                 <div class="photo-frame">
                     <img src="1.jpg" alt="Our moment 1">
@@ -465,7 +438,7 @@
                 </div>
                 <div class="photo-frame">
                     <img src="6.jpg" alt="Our moment 6">
-                    <div class="photo-caption">Dreaming of this hug one day  </div>
+                    <div class="photo-caption">Dreaming of this hug one day </div>
                 </div>
                 <div class="photo-frame">
                     <img src="7.jpg" alt="Our moment 6">
@@ -480,23 +453,21 @@
                     <div class="photo-caption">Remember that frustrated day?</div>
                 </div>
             </div>
-
             <footer>
                 Crafted with endless love for my Hanni—<br>
                 Your Dynamic duo, Friend and partner(kk or spider). ❤️🎂
             </footer>
+            <br>
+            <div id="public-wish">
+                <h1>Happy Birthday, Hanni! 🎂</h1>
+                <p>A special angel is celebrating today. Share your love and wishes for her!</p>
+                <input type="text" id="public-name" placeholder="Your name..." style="color: black !important;">
+                <textarea id="public-msg" rows="4" placeholder="Your birthday message..."></textarea>
+                <button onclick="savePublicMessage()">Send Wish</button>
+                <div id="public-wallMessages"></div>
+            </div>
         </div>
     </div>
-
-    <div id="public-wish">
-        <h1>Happy Birthday, Hanni! 🎂</h1>
-        <p>A special angel is celebrating today. Share your love and wishes for her!</p>
-        <input type="text" id="public-name" placeholder="Your name..." style="color: black !important;">
-        <textarea id="public-msg" rows="4" placeholder="Your birthday message..."></textarea>
-        <button onclick="savePublicMessage()">Send Wish</button>
-        <div id="public-wallMessages"></div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS('particles-js', {
@@ -514,7 +485,6 @@
             },
             retina_detect: true
         });
-
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -545,15 +515,13 @@
             requestAnimationFrame(animateHearts);
         }
         animateHearts();
-
         function checkPassword() {
             const input = document.getElementById('passwordInput').value.toLowerCase().trim();
             const error = document.getElementById('error');
             const success = document.getElementById('success-msg');
             const loginScreen = document.getElementById('login-screen');
             const mainContent = document.getElementById('main-content');
-            const publicWish = document.getElementById('public-wish');
-            const specialNames = ['babygirl', 'momiee', 'itsnotrock'];
+            const specialNames = ['hanni', 'momiee', 'itsnotrock'];
             if (specialNames.includes(input)) {
                 error.style.display = 'none';
                 success.style.display = 'block';
@@ -563,16 +531,12 @@
                         loginScreen.style.display = 'none';
                         mainContent.style.display = 'block';
                         revealCards();
+                        loadPublicMessages();
                     }, 1000);
                 }, 1500);
             } else {
                 error.style.display = 'block';
                 shakeInput();
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    publicWish.style.display = 'block';
-                    loadPublicMessages();
-                }, 2000);
             }
         }
         function shakeInput() {
@@ -581,7 +545,6 @@
             setTimeout(() => input.style.transform = "translateX(-10px)", 100);
             setTimeout(() => input.style.transform = "translateX(0)", 200);
         }
-
         function revealCards() {
             const cards = document.querySelectorAll('.card');
             const observer = new IntersectionObserver((entries) => {
@@ -591,7 +554,6 @@
             });
             cards.forEach(card => observer.observe(card));
         }
-
         function openGift() {
             document.getElementById('gift-content').classList.add('show');
             setTimeout(() => {
@@ -614,7 +576,6 @@
                 }, i * 30);
             }
         }
-
         function loadMessages() {
             const container = document.getElementById("wallMessages");
             container.innerHTML = "";
@@ -638,11 +599,19 @@
             loadMessages();
         }
         loadMessages();
-
         function loadPublicMessages() {
             const container = document.getElementById("public-wallMessages");
             container.innerHTML = "";
-            const saved = JSON.parse(localStorage.getItem("publicWishes") || "[]");
+            let saved = JSON.parse(localStorage.getItem("publicWishes"));
+            
+            if (!saved) {
+                saved = [
+                    {name: "Midhun", text: "Happy birthday Friend"},
+                    {name: "Sandhiya", text: "Happie birthday Rose"}
+                ];
+                localStorage.setItem("publicWishes", JSON.stringify(saved));
+            }
+            
             saved.forEach(m => {
                 const card = document.createElement("div");
                 card.classList.add("messageCard");
@@ -661,7 +630,6 @@
             document.getElementById("public-msg").value = "";
             loadPublicMessages();
         }
-
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -669,14 +637,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
